@@ -1,13 +1,17 @@
 #include <iostream>
 #include <iomanip>
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include <cmath>
 #include <random>
 #include <fstream>
+#include <filesystem>
 #include "float2.h"
 #include "types.h"
+namespace fs = std::filesystem;
 
 int main() {
-    fp64 a = 64;
+    fp64 a = M_PI;
     fp64 b = M_E;
 
     float2 f2a = float2(fp32(a));
@@ -73,12 +77,17 @@ int main() {
     std::cout << std::setprecision(15) << "float2 precision square root = " << h2 << std::endl;
     std::cout << std::setprecision(15) << "FP64 precision square root = " << sqrt(a) << std::endl;
 
-    std::ofstream file_add("addition.csv");
-    std::ofstream file_sub("subtraction.csv");
-    std::ofstream file_mul("multiplication.csv");
-    std::ofstream file_div("division.csv");
-    std::ofstream file_sqr("square.csv");
-    std::ofstream file_sqrt("square_root.csv");
+    fs::path dir = "results";
+    if (!fs::exists(dir)) {
+        fs::create_directories(dir);  // Create the directory if it doesn't exist
+    }
+
+    std::ofstream file_add(dir / "1_addition.csv");
+    std::ofstream file_sub(dir / "2_subtraction.csv");
+    std::ofstream file_mul(dir / "3_multiplication.csv");
+    std::ofstream file_div(dir / "4_division.csv");
+    std::ofstream file_sqr(dir / "5_square.csv");
+    std::ofstream file_sqrt(dir / "6_square_root.csv");
 
     file_add  << "FP32 precision addition,float2 precision addition,FP64 precision addition\n";
     file_sub  << "FP32 precision subtraction,float2 precision subtraction,FP64 precision subtraction\n";
@@ -195,8 +204,6 @@ int main() {
     }
 
     file_add.close();
-
-    // std::cout << M_PI << " " << M_E; 
 
     return 0;
 }
