@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+#include <random>
 #include "float2.h"
 #include "types.h"
 
@@ -51,9 +52,31 @@ int main() {
     std::cout << std::setprecision(16) << "float2 precision division = " << f2 << std::endl;
     std::cout << std::setprecision(16) << "FP64 precision division   = " << a / b << std::endl;
 
-    /*std::cout << std::setprecision(16) << M_PI;
-    std::cout << std::endl;
-    std::cout << std::setprecision(16) << M_E;*/
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    std::uniform_real_distribution<> distr(0.0, 1.0);
+
+    for(int i = 0; i < 10; i++) {
+        fp64 a_test = distr(gen);
+        fp64 b_test = distr(gen);
+
+        fp64 fp64_add = a_test + b_test;
+
+        float2 f2a_test = float2(fp32(a_test));
+        float2 f2b_test = float2(fp32(b_test));
+
+        float2 f2c_test = f2a_test + f2b_test;
+
+        fp32 c1_test = (fp32)a_test + (fp32)b_test;
+        fp64 c2_test = float2::combine(f2c_test);
+
+        std::cout << std::setprecision(16) << "FP32 precision additon   = " << c1_test << std::endl;
+        std::cout << std::setprecision(16) << "float2 precision additon = " << c2_test << std::endl;
+        std::cout << std::setprecision(16) << "FP64 precision additon   = " << fp64_add << std::endl;
+        std::cout << std::endl;
+
+    }
 
     return 0;
 }
