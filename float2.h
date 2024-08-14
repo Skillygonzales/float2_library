@@ -23,11 +23,14 @@ public:
     static float2 quickTwoDiff(fp32 a, fp32 b);
     static float2 twoDiff(fp32 a, fp32 b);
     static float2 twoProd(fp32 a, fp32 b);
+    static float2 twoSqr(fp32 a);
 
     friend float2 operator+(float2 a, float2 b);
     friend float2 operator-(float2 a, float2 b);
     friend float2 operator*(float2 a, float2 b);
     friend float2 operator/(float2 b, float2 a);
+    friend float2 f2_sqr(float2 a);
+    friend float2 f2_sqrt(float2 a);
 };
 
 #endif // FLOAT2_H

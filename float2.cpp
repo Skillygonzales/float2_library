@@ -75,6 +75,13 @@ float2 float2::twoProd(fp32 a, fp32 b) {
     return float2(p, err);
 }
 
+float2 float2::twoSqr(fp32 a) {
+    fp32 p = a * a;
+    float2 aS = split(a);
+    fp32 err = ((aS.x * aS.x - p) + aS.x * aS.y + aS.y * aS.x) + aS.y * aS.y;
+    return float2(p, err);
+}
+
 float2 operator+(float2 a, float2 b) {
     float2 s, t;
     s = float2::twoSum(a.x, b.x);
@@ -111,6 +118,25 @@ float2 operator/(float2 b, float2 a) {
     fp32 yn = b.x * xn;
     fp32 diff = (b - (a * float2(yn))).x;
     float2 prod = float2::twoProd(xn, diff);
+    float2 result = yn + prod;
+    return result;
+}
+
+float2 f2_sqr(float2 a) {
+    float2 p;
+    p = float2::twoSqr(a.x);
+    p.y += a.x * a.y;
+    p.y += a.y * a.x;
+    p = float2::quickTwoSum(p.x, p.y);
+    return p;
+}
+
+float2 f2_sqrt(float2 a) {
+    fp32 xn = 1 / sqrt(a.x);
+    fp32 yn = a.x * xn;
+    float2 ynsqr = f2_sqr(yn);
+    fp32 diff = (a - ynsqr).x;
+    float2 prod = float2::twoProd(xn, diff) / float2(2.0f);
     float2 result = yn + prod;
     return result;
 }
