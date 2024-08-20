@@ -1,7 +1,9 @@
+#include <quadmath.h>
+
 #ifndef TYPES_H
 #define TYPES_H
 
-typedef float fp32;
-typedef double fp128;
+typedef double fp64;
+typedef __float128 fp128;
 
 #endif // TYPES_H
