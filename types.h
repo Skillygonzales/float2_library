@@ -2,6 +2,6 @@
 #define TYPES_H
 
 typedef float fp32;
-typedef double fp64;
+typedef double fp128;
 
 #endif // TYPES_H
