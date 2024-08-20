@@ -115,12 +115,12 @@ int main() {
         float2 f2a_test = float2(fp64(a_test));
         float2 f2b_test = float2(fp64(b_test));
 
-        fp128 fp64_add = a_test + b_test;
-        fp128 fp64_sub = a_test - b_test;
-        fp128 fp64_mul = a_test * b_test;
-        fp128 fp64_div = a_test / b_test;
-        fp128 fp64_sqr = a_test * a_test;
-        fp128 fp64_sqrt = sqrt(a_test);
+        fp128 fp128_add = a_test + b_test;
+        fp128 fp128_sub = a_test - b_test;
+        fp128 fp128_mul = a_test * b_test;
+        fp128 fp128_div = a_test / b_test;
+        fp128 fp128_sqr = a_test * a_test;
+        fp128 fp128_sqrt = sqrtq(a_test);
 
         float2 f2c_test = f2a_test + f2b_test;
         float2 f2d_test = f2a_test - f2b_test;
@@ -149,63 +149,63 @@ int main() {
 
         file_add << std::setprecision(15)
              << c1_test << ","
-             << c2_test << ","
-             << fp64_add << "\n";
+             << float128_to_string(c2_test) << ","
+             << float128_to_string(fp128_add) << "\n";
 
         file_sub << std::setprecision(15)
              << d1_test << ","
-             << d2_test << ","
-             << fp64_sub << "\n";
+             << float128_to_string(d2_test) << ","
+             << float128_to_string(fp128_sub) << "\n";
 
         file_mul << std::setprecision(15)
              << e1_test << ","
-             << e2_test << ","
-             << fp64_mul << "\n";
+             << float128_to_string(e2_test) << ","
+             << float128_to_string(fp128_mul) << "\n";
 
         file_div << std::setprecision(15)
              << f1_test << ","
-             << f2_test << ","
-             << fp64_div << "\n";
+             << float128_to_string(f2_test) << ","
+             << float128_to_string(fp128_div) << "\n";
 
         file_sqr << std::setprecision(15)
              << g1_test << ","
-             << g2_test << ","
-             << fp64_sqr << "\n";
+             << float128_to_string(g2_test) << ","
+             << float128_to_string(fp128_sqr) << "\n";
 
         file_sqrt << std::setprecision(15)
              << h1_test << ","
-             << h2_test << ","
-             << fp64_sqrt << "\n";
+             << float128_to_string(h2_test) << ","
+             << float128_to_string(fp128_sqrt) << "\n";
 
         std::cout << std::setprecision(15) << "fp64 precision additon   = " << c1_test << std::endl;
-        std::cout << std::setprecision(15) << "float2 precision additon = " << c2_test << std::endl;
-        std::cout << std::setprecision(15) << "fp128 precision additon   = " << fp64_add << std::endl;
+        std::cout << "float2 precision additon = " << float128_to_string(c2_test) << std::endl;
+        std::cout << "fp128 precision additon  = " << float128_to_string(fp128_add) << std::endl;
         std::cout << std::endl;
 
         std::cout << std::setprecision(15) << "fp64 precision subtraction   = " << d1_test << std::endl;
-        std::cout << std::setprecision(15) << "float2 precision subtraction = " << d2_test << std::endl;
-        std::cout << std::setprecision(15) << "fp128 precision subtraction   = " << fp64_sub << std::endl;
+        std::cout << "float2 precision subtraction = " << float128_to_string(d2_test) << std::endl;
+        std::cout << "fp128 precision subtraction  = " << float128_to_string(fp128_sub) << std::endl;
         std::cout << std::endl;
         std::cout << std::endl;
 
         std::cout << std::setprecision(15) << "fp64 precision multiplication   = " << e1_test << std::endl;
-        std::cout << std::setprecision(15) << "float2 precision multiplication = " << e2_test << std::endl;
-        std::cout << std::setprecision(15) << "fp128 precision multiplication   = " << fp64_mul << std::endl;
+        std::cout << "float2 precision multiplication = " << float128_to_string(e2_test) << std::endl;
+        std::cout << "fp128 precision multiplication  = " << float128_to_string(fp128_mul) << std::endl;
         std::cout << std::endl;
 
         std::cout << std::setprecision(15) << "fp64 precision division   = " << f1_test << std::endl;
-        std::cout << std::setprecision(15) << "float2 precision division = " << f2_test << std::endl;
-        std::cout << std::setprecision(15) << "fp128 precision division   = " << fp64_div << std::endl;
+        std::cout << "float2 precision division = " << float128_to_string(f2_test) << std::endl;
+        std::cout << "fp128 precision division  = " << float128_to_string(fp128_div) << std::endl;
         std::cout << std::endl;
         
         std::cout << std::setprecision(15) << "fp64 precision square   = " << g1_test << std::endl;
-        std::cout << std::setprecision(15) << "float2 precision square = " << g2_test << std::endl;
-        std::cout << std::setprecision(15) << "fp128 precision square   = " << fp64_sqr << std::endl;
+        std::cout << "float2 precision square = " << float128_to_string(g2_test) << std::endl;
+        std::cout << "fp128 precision square  = " << float128_to_string(fp128_sqr) << std::endl;
         std::cout << std::endl;
         
         std::cout << std::setprecision(15) << "fp64 precision square root   = " << h1_test << std::endl;
-        std::cout << std::setprecision(15) << "float2 precision square root = " << h2_test << std::endl;
-        std::cout << std::setprecision(15) << "fp128 precision square root   = " << fp64_sqrt << std::endl;
+        std::cout << "float2 precision square root = " << float128_to_string(h2_test) << std::endl;
+        std::cout << "fp128 precision square root  = " << float128_to_string(fp128_sqrt) << std::endl;
         std::cout << std::endl;
 
     }
