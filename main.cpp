@@ -14,6 +14,11 @@ int main() {
     fp64 a = M_PI;
     fp64 b = M_E;
 
+    int fp32_p = 6;
+    int fp64_p = 15;
+    fp32 interval_low = 0.1;
+    fp32 interval_max = 1; 
+
     float2 f2a = float2(fp32(a));
     float2 f2b = float2(fp32(b));
     float2 f2c = f2a + f2b;
@@ -43,39 +48,39 @@ int main() {
 
     std::cout << std::endl;
     // TESTING FP64 addition:
-    std::cout << std::setprecision(15) << "FP32 precision additon   = " << c1 << std::endl;
-    std::cout << std::setprecision(15) << "float2 precision additon = " << c2 << std::endl;
-    std::cout << std::setprecision(15) << "FP64 precision additon   = " << a + b << std::endl;
+    std::cout << std::setprecision(fp32_p) << "FP32 precision additon   = " << c1 << std::endl;
+    std::cout << std::setprecision(fp64_p) << "float2 precision additon = " << c2 << std::endl;
+    std::cout << std::setprecision(fp64_p) << "FP64 precision additon   = " << a + b << std::endl;
 
     std::cout << std::endl;
     // TESTING FP64 subtraction:
-    std::cout << std::setprecision(15) << "FP32 precision subtraction   = " << d1 << std::endl;
-    std::cout << std::setprecision(15) << "float2 precision subtraction = " << d2 << std::endl;
-    std::cout << std::setprecision(15) << "FP64 precision subtraction   = " << a - b << std::endl;
+    std::cout << std::setprecision(fp32_p) << "FP32 precision subtraction   = " << d1 << std::endl;
+    std::cout << std::setprecision(fp64_p) << "float2 precision subtraction = " << d2 << std::endl;
+    std::cout << std::setprecision(fp64_p) << "FP64 precision subtraction   = " << a - b << std::endl;
 
     std::cout << std::endl;
     // TESTING FP64 multiplication:
-    std::cout << std::setprecision(15) << "FP32 precision multiplication   = " << e1 << std::endl;
-    std::cout << std::setprecision(15) << "float2 precision multiplication = " << e2 << std::endl;
-    std::cout << std::setprecision(15) << "FP64 precision multiplication   = " << a * b << std::endl;
+    std::cout << std::setprecision(fp32_p) << "FP32 precision multiplication   = " << e1 << std::endl;
+    std::cout << std::setprecision(fp64_p) << "float2 precision multiplication = " << e2 << std::endl;
+    std::cout << std::setprecision(fp64_p) << "FP64 precision multiplication   = " << a * b << std::endl;
 
     std::cout << std::endl;
     // TESTING FP64 division:
-    std::cout << std::setprecision(15) << "FP32 precision division   = " << f1 << std::endl;
-    std::cout << std::setprecision(15) << "float2 precision division = " << f2 << std::endl;
-    std::cout << std::setprecision(15) << "FP64 precision division   = " << a / b << std::endl;
+    std::cout << std::setprecision(fp32_p) << "FP32 precision division   = " << f1 << std::endl;
+    std::cout << std::setprecision(fp64_p) << "float2 precision division = " << f2 << std::endl;
+    std::cout << std::setprecision(fp64_p) << "FP64 precision division   = " << a / b << std::endl;
 
     std::cout << std::endl;
     // TESTING FP64 square:
-    std::cout << std::setprecision(15) << "FP32 precision square   = " << g1 << std::endl;
-    std::cout << std::setprecision(15) << "float2 precision square = " << g2 << std::endl;
-    std::cout << std::setprecision(15) << "FP64 precision square   = " << a * a << std::endl;
+    std::cout << std::setprecision(fp32_p) << "FP32 precision square   = " << g1 << std::endl;
+    std::cout << std::setprecision(fp64_p) << "float2 precision square = " << g2 << std::endl;
+    std::cout << std::setprecision(fp64_p) << "FP64 precision square   = " << a * a << std::endl;
 
     std::cout << std::endl;
     // TESTING FP64 square root:
-    std::cout << std::setprecision(15) << "FP32 precision square root  = " << h1 << std::endl;
-    std::cout << std::setprecision(15) << "float2 precision square root = " << h2 << std::endl;
-    std::cout << std::setprecision(15) << "FP64 precision square root = " << sqrt(a) << std::endl;
+    std::cout << std::setprecision(fp32_p) << "FP32 precision square root  = " << h1 << std::endl;
+    std::cout << std::setprecision(fp64_p) << "float2 precision square root = " << h2 << std::endl;
+    std::cout << std::setprecision(fp64_p) << "FP64 precision square root = " << sqrt(a) << std::endl;
 
     fs::path dir = "results";
     if (!fs::exists(dir)) {
@@ -99,7 +104,7 @@ int main() {
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    std::uniform_real_distribution<> distr(0.1, 1.0);
+    std::uniform_real_distribution<> distr(interval_low, interval_max);
 
     for(int i = 0; i < 1000; i++) {
         fp64 a_test = distr(gen);
@@ -140,65 +145,59 @@ int main() {
         fp32 h1_test = sqrt((fp32)a_test);
         fp64 h2_test = float2::combine(f2h_test);
 
-        file_add << std::setprecision(15)
-             << c1_test << ","
-             << c2_test << ","
-             << fp64_add << "\n";
+        file_add << std::setprecision(fp32_p) << c1_test << ","
+                 << std::setprecision(fp64_p) << c2_test << ","
+                 << std::setprecision(fp64_p) << fp64_add << "\n";
 
-        file_sub << std::setprecision(15)
-             << d1_test << ","
-             << d2_test << ","
-             << fp64_sub << "\n";
+        file_sub << std::setprecision(fp32_p) << d1_test << ","
+                 << std::setprecision(fp64_p) << d2_test << ","
+                 << std::setprecision(fp64_p) << fp64_sub << "\n";
 
-        file_mul << std::setprecision(15)
-             << e1_test << ","
-             << e2_test << ","
-             << fp64_mul << "\n";
+        file_mul << std::setprecision(fp32_p) << e1_test << ","
+                 << std::setprecision(fp64_p) << e2_test << ","
+                 << std::setprecision(fp64_p) << fp64_mul << "\n";
 
-        file_div << std::setprecision(15)
-             << f1_test << ","
-             << f2_test << ","
-             << fp64_div << "\n";
+        file_div << std::setprecision(fp32_p) << f1_test << ","
+                 << std::setprecision(fp64_p) << f2_test << ","
+                 << std::setprecision(fp64_p) << fp64_div << "\n";
 
-        file_sqr << std::setprecision(15)
-             << g1_test << ","
-             << g2_test << ","
-             << fp64_sqr << "\n";
+        file_sqr << std::setprecision(fp32_p) << g1_test << ","
+                 << std::setprecision(fp64_p) << g2_test << ","
+                 << std::setprecision(fp64_p) << fp64_sqr << "\n";
 
-        file_sqrt << std::setprecision(15)
-             << h1_test << ","
-             << h2_test << ","
-             << fp64_sqrt << "\n";
+        file_sqrt << std::setprecision(fp32_p) << h1_test << ","
+                  << std::setprecision(fp64_p) << h2_test << ","
+                  << std::setprecision(fp64_p) << fp64_sqrt << "\n";
 
-        std::cout << std::setprecision(15) << "FP32 precision additon   = " << c1_test << std::endl;
-        std::cout << std::setprecision(15) << "float2 precision additon = " << c2_test << std::endl;
-        std::cout << std::setprecision(15) << "FP64 precision additon   = " << fp64_add << std::endl;
+        std::cout << std::setprecision(fp32_p) << "FP32 precision additon   = " << c1_test << std::endl;
+        std::cout << std::setprecision(fp64_p) << "float2 precision additon = " << c2_test << std::endl;
+        std::cout << std::setprecision(fp64_p) << "FP64 precision additon   = " << fp64_add << std::endl;
         std::cout << std::endl;
 
-        std::cout << std::setprecision(15) << "FP32 precision subtraction   = " << d1_test << std::endl;
-        std::cout << std::setprecision(15) << "float2 precision subtraction = " << d2_test << std::endl;
-        std::cout << std::setprecision(15) << "FP64 precision subtraction   = " << fp64_sub << std::endl;
+        std::cout << std::setprecision(fp32_p) << "FP32 precision subtraction   = " << d1_test << std::endl;
+        std::cout << std::setprecision(fp64_p) << "float2 precision subtraction = " << d2_test << std::endl;
+        std::cout << std::setprecision(fp64_p) << "FP64 precision subtraction   = " << fp64_sub << std::endl;
         std::cout << std::endl;
         std::cout << std::endl;
 
-        std::cout << std::setprecision(15) << "FP32 precision multiplication   = " << e1_test << std::endl;
-        std::cout << std::setprecision(15) << "float2 precision multiplication = " << e2_test << std::endl;
-        std::cout << std::setprecision(15) << "FP64 precision multiplication   = " << fp64_mul << std::endl;
+        std::cout << std::setprecision(fp32_p) << "FP32 precision multiplication   = " << e1_test << std::endl;
+        std::cout << std::setprecision(fp64_p) << "float2 precision multiplication = " << e2_test << std::endl;
+        std::cout << std::setprecision(fp64_p) << "FP64 precision multiplication   = " << fp64_mul << std::endl;
         std::cout << std::endl;
 
-        std::cout << std::setprecision(15) << "FP32 precision division   = " << f1_test << std::endl;
-        std::cout << std::setprecision(15) << "float2 precision division = " << f2_test << std::endl;
-        std::cout << std::setprecision(15) << "FP64 precision division   = " << fp64_div << std::endl;
+        std::cout << std::setprecision(fp32_p) << "FP32 precision division   = " << f1_test << std::endl;
+        std::cout << std::setprecision(fp64_p) << "float2 precision division = " << f2_test << std::endl;
+        std::cout << std::setprecision(fp64_p) << "FP64 precision division   = " << fp64_div << std::endl;
         std::cout << std::endl;
         
-        std::cout << std::setprecision(15) << "FP32 precision square   = " << g1_test << std::endl;
-        std::cout << std::setprecision(15) << "float2 precision square = " << g2_test << std::endl;
-        std::cout << std::setprecision(15) << "FP64 precision square   = " << fp64_sqr << std::endl;
+        std::cout << std::setprecision(fp32_p) << "FP32 precision square   = " << g1_test << std::endl;
+        std::cout << std::setprecision(fp64_p) << "float2 precision square = " << g2_test << std::endl;
+        std::cout << std::setprecision(fp64_p) << "FP64 precision square   = " << fp64_sqr << std::endl;
         std::cout << std::endl;
         
-        std::cout << std::setprecision(15) << "FP32 precision square root   = " << h1_test << std::endl;
-        std::cout << std::setprecision(15) << "float2 precision square root = " << h2_test << std::endl;
-        std::cout << std::setprecision(15) << "FP64 precision square root   = " << fp64_sqrt << std::endl;
+        std::cout << std::setprecision(fp32_p) << "FP32 precision square root   = " << h1_test << std::endl;
+        std::cout << std::setprecision(fp64_p) << "float2 precision square root = " << h2_test << std::endl;
+        std::cout << std::setprecision(fp64_p) << "FP64 precision square root   = " << fp64_sqrt << std::endl;
         std::cout << std::endl;
 
     }

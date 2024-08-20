@@ -28,7 +28,7 @@ float2 float2::splitDouble(fp64 a) {
 }
 
 float2 float2::split(fp32 a) {
-    const fp32 split = 4097;
+    const fp32 split = (1 << 12) + 1;
     fp32 t = a * split;
     fp32 a_hi = t - (t-a);
     fp32 a_lo = a - a_hi;
