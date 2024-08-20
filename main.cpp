@@ -47,44 +47,44 @@ int main() {
     fp64 h2 = float2::combine(f2h);
 
     std::cout << std::endl;
-    // TESTING FP64 addition:
+    // TESTARE adunare:
     std::cout << std::setprecision(fp32_p) << "adunare cu precizie fp32   = " << c1 << std::endl;
     std::cout << std::setprecision(fp64_p) << "adunare cu precizie float2 = " << c2 << std::endl;
     std::cout << std::setprecision(fp64_p) << "adunare cu precizie fp64   = " << a + b << std::endl;
 
     std::cout << std::endl;
-    // TESTING FP64 subtraction:
+    // TESTARE scadere:
     std::cout << std::setprecision(fp32_p) << "scadere cu precizie fp32   = " << d1 << std::endl;
     std::cout << std::setprecision(fp64_p) << "scadere cu precizie float2 = " << d2 << std::endl;
     std::cout << std::setprecision(fp64_p) << "scadere cu precizie fp64   = " << a - b << std::endl;
 
     std::cout << std::endl;
-    // TESTING FP64 multiplication:
+    // TESTARE inmultire:
     std::cout << std::setprecision(fp32_p) << "inmultire cu precizie fp32   = " << e1 << std::endl;
     std::cout << std::setprecision(fp64_p) << "inmultire cu precizie float2 = " << e2 << std::endl;
     std::cout << std::setprecision(fp64_p) << "inmultire cu precizie fp64   = " << a * b << std::endl;
 
     std::cout << std::endl;
-    // TESTING FP64 division:
+    // TESTARE impartire:
     std::cout << std::setprecision(fp32_p) << "impartire cu precizie fp32   = " << f1 << std::endl;
     std::cout << std::setprecision(fp64_p) << "impartire cu precizie float2 = " << f2 << std::endl;
     std::cout << std::setprecision(fp64_p) << "impartire cu precizie fp64   = " << a / b << std::endl;
 
     std::cout << std::endl;
-    // TESTING FP64 square:
+    // TESTARE ridicare la patrat:
     std::cout << std::setprecision(fp32_p) << "ridicare la patrat cu precizie 32   = " << g1 << std::endl;
     std::cout << std::setprecision(fp64_p) << "ridicare la patrat cu precizie float2 = " << g2 << std::endl;
     std::cout << std::setprecision(fp64_p) << "ridicare la patrat cu precizie fp64   = " << a * a << std::endl;
 
     std::cout << std::endl;
-    // TESTING FP64 square root:
+    // TESTARE radical:
     std::cout << std::setprecision(fp32_p) << "radical cu precizie fp32   = " << h1 << std::endl;
     std::cout << std::setprecision(fp64_p) << "radical cu precizie float2 = " << h2 << std::endl;
     std::cout << std::setprecision(fp64_p) << "radical cu precizie fp64   = " << sqrt(a) << std::endl;
 
     fs::path dir = "results";
     if (!fs::exists(dir)) {
-        fs::create_directories(dir);  // Create the directory if it doesn't exist
+        fs::create_directories(dir);  
     }
 
     std::ofstream file_add(dir / "1_adunare.csv");

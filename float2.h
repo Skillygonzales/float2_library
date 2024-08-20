@@ -33,4 +33,4 @@ public:
     friend float2 f2_sqrt(float2 a);
 };
 
-#endif // FLOAT2_H
+#endif
