@@ -2,83 +2,83 @@
 #include "types.h"
 #include <cmath>
 
-float2::float2(fp32 _x = 0, fp32 _y = 0) {
+float2::float2(fp64 _x = 0, fp64 _y = 0) {
     x = _x;
     y = _y;
 }
 
-float2::float2(fp64 _x) {
+float2::float2(fp128 _x) {
     float2 result = splitDouble(_x);
     x = result.x;
     y = result.y;
 }
 
-fp32 float2::getX() const { return x; }
-fp32 float2::getY() const { return y; }
+fp64 float2::getX() const { return x; }
+fp64 float2::getY() const { return y; }
 
-float2 float2::splitDouble(fp64 a) {
-    const double splitter = (1 << 29) + 1;
-    fp64 t = a * splitter;
-    fp64 t_hi = t - (t - a);
-    fp64 t_lo = a - t_hi;
+float2 float2::splitDouble(fp128 a) {
+    const fp128 splitter = (1 << 66) + 1;
+    fp128 t = a * splitter;
+    fp128 t_hi = t - (t - a);
+    fp128 t_lo = a - t_hi;
 
-    fp32 a_hi = (fp32) t_hi;
-    fp32 a_lo = (fp32) t_lo;
+    fp64 a_hi = (fp64) t_hi;
+    fp64 a_lo = (fp64) t_lo;
     return float2(a_hi, a_lo);
 }
 
-float2 float2::split(fp32 a) {
-    const fp32 split = 4097;
-    fp32 t = a * split;
-    fp32 a_hi = t - (t-a);
-    fp32 a_lo = a - a_hi;
+float2 float2::split(fp64 a) {
+    const fp64 split = (1 << 29) + 1;
+    fp64 t = a * split;
+    fp64 a_hi = t - (t-a);
+    fp64 a_lo = a - a_hi;
     return float2(a_hi, a_lo);
 }
 
-fp64 float2::combine(float2 a) {
-    fp64 result = a.x;
+fp128 float2::combine(float2 a) {
+    fp128 result = a.x;
     result = result + a.y;
     return result;
 }
 
-float2 float2::twoSum(fp32 a, fp32 b) {
-    fp32 s = a + b;
-    fp32 v = s - a;
-    fp32 e = (a - (s - v)) + (b - v);
+float2 float2::twoSum(fp64 a, fp64 b) {
+    fp64 s = a + b;
+    fp64 v = s - a;
+    fp64 e = (a - (s - v)) + (b - v);
     return float2(s, e);
 }
 
-float2 float2::quickTwoSum(fp32 a, fp32 b) {
-    fp32 s = a + b;
-    fp32 e = b - (s - a);
+float2 float2::quickTwoSum(fp64 a, fp64 b) {
+    fp64 s = a + b;
+    fp64 e = b - (s - a);
     return float2(s, e);
 }
 
-float2 float2::quickTwoDiff(fp32 a, fp32 b) {
-    fp32 s = a - b;
-    fp32 e = (a - s) - b;
+float2 float2::quickTwoDiff(fp64 a, fp64 b) {
+    fp64 s = a - b;
+    fp64 e = (a - s) - b;
     return float2(s, e);
 }
 
-float2 float2::twoDiff (fp32 a, fp32 b) {
-    fp32 s = a - b;
-    fp32 v = s - a;
-    fp32 e = (a - (s - v) - (b + v));
+float2 float2::twoDiff (fp64 a, fp64 b) {
+    fp64 s = a - b;
+    fp64 v = s - a;
+    fp64 e = (a - (s - v) - (b + v));
     return float2(s, e);
 }
 
-float2 float2::twoProd(fp32 a, fp32 b) {
-    fp32 p = a * b;
+float2 float2::twoProd(fp64 a, fp64 b) {
+    fp64 p = a * b;
     float2 aS = split(a);
     float2 bS = split(b);
-    fp32 err = ((aS.x * bS.x - p) + aS.x * bS.y + aS.y * bS.x) + aS.y * bS.y;
+    fp64 err = ((aS.x * bS.x - p) + aS.x * bS.y + aS.y * bS.x) + aS.y * bS.y;
     return float2(p, err);
 }
 
-float2 float2::twoSqr(fp32 a) {
-    fp32 p = a * a;
+float2 float2::twoSqr(fp64 a) {
+    fp64 p = a * a;
     float2 aS = split(a);
-    fp32 err = ((aS.x * aS.x - p) + aS.x * aS.y + aS.y * aS.x) + aS.y * aS.y;
+    fp64 err = ((aS.x * aS.x - p) + aS.x * aS.y + aS.y * aS.x) + aS.y * aS.y;
     return float2(p, err);
 }
 
@@ -114,9 +114,9 @@ float2 operator*(float2 a, float2 b) {
 }
 
 float2 operator/(float2 b, float2 a) {
-    fp32 xn = 1.0f / a.x;
-    fp32 yn = b.x * xn;
-    fp32 diff = (b - (a * float2(yn))).x;
+    fp64 xn = 1.0f / a.x;
+    fp64 yn = b.x * xn;
+    fp64 diff = (b - (a * float2(yn))).x;
     float2 prod = float2::twoProd(xn, diff);
     float2 result = yn + prod;
     return result;
@@ -132,10 +132,10 @@ float2 f2_sqr(float2 a) {
 }
 
 float2 f2_sqrt(float2 a) {
-    fp32 xn = 1 / sqrt(a.x);
-    fp32 yn = a.x * xn;
+    fp64 xn = 1 / sqrt(a.x);
+    fp64 yn = a.x * xn;
     float2 ynsqr = f2_sqr(yn);
-    fp32 diff = (a - ynsqr).x;
+    fp64 diff = (a - ynsqr).x;
     float2 prod = float2::twoProd(xn, diff) / float2(2.0f);
     float2 result = yn + prod;
     return result;

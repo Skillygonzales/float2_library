@@ -5,25 +5,25 @@
 
 class float2 {
 private:
-    fp32 x;
-    fp32 y;
+    fp64 x;
+    fp64 y;
 
 public:
-    float2(fp32 _x, fp32 _y);
-    float2(fp64 _x);
+    float2(fp64 _x, fp64 _y);
+    float2(fp128 _x);
 
-    fp32 getX() const;
-    fp32 getY() const;
+    fp64 getX() const;
+    fp64 getY() const;
 
-    static float2 splitDouble(fp64 a);
-    static float2 split(fp32 a);
-    static fp64 combine(float2 a);
-    static float2 twoSum(fp32 a, fp32 b);
-    static float2 quickTwoSum(fp32 a, fp32 b);
-    static float2 quickTwoDiff(fp32 a, fp32 b);
-    static float2 twoDiff(fp32 a, fp32 b);
-    static float2 twoProd(fp32 a, fp32 b);
-    static float2 twoSqr(fp32 a);
+    static float2 splitDouble(fp128 a);
+    static float2 split(fp64 a);
+    static fp128 combine(float2 a);
+    static float2 twoSum(fp64 a, fp64 b);
+    static float2 quickTwoSum(fp64 a, fp64 b);
+    static float2 quickTwoDiff(fp64 a, fp64 b);
+    static float2 twoDiff(fp64 a, fp64 b);
+    static float2 twoProd(fp64 a, fp64 b);
+    static float2 twoSqr(fp64 a);
 
     friend float2 operator+(float2 a, float2 b);
     friend float2 operator-(float2 a, float2 b);
