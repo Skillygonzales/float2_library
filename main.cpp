@@ -72,7 +72,7 @@ int main() {
 
     std::cout << std::endl;
     // TESTARE ridicare la patrat:
-    std::cout << std::setprecision(fp32_p) << "ridicare la patrat cu precizie 32   = " << g1 << std::endl;
+    std::cout << std::setprecision(fp32_p) << "ridicare la patrat cu precizie 32     = " << g1 << std::endl;
     std::cout << std::setprecision(fp64_p) << "ridicare la patrat cu precizie float2 = " << g2 << std::endl;
     std::cout << std::setprecision(fp64_p) << "ridicare la patrat cu precizie fp64   = " << a * a << std::endl;
 
@@ -82,7 +82,7 @@ int main() {
     std::cout << std::setprecision(fp64_p) << "radical cu precizie float2 = " << h2 << std::endl;
     std::cout << std::setprecision(fp64_p) << "radical cu precizie fp64   = " << sqrt(a) << std::endl;
 
-    fs::path dir = "results";
+    /*fs::path dir = "results";
     if (!fs::exists(dir)) {
         fs::create_directories(dir);  
     }
@@ -202,7 +202,7 @@ int main() {
 
     }
 
-    file_add.close();
+    file_add.close();*/
 
     return 0;
 }

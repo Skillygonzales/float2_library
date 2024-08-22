@@ -18,19 +18,19 @@ fp32 float2::getY() const { return y; }
 
 float2 float2::splitDouble(fp64 a) {
     const double splitter = (1 << 29) + 1;
-    fp64 t = a * splitter;
-    fp64 t_hi = t - (t - a);
-    fp64 t_lo = a - t_hi;
+    fp64 c = a * splitter;
+    fp64 c_hi = c - (c - a);
+    fp64 c_lo = a - c_hi;
 
-    fp32 a_hi = (fp32) t_hi;
-    fp32 a_lo = (fp32) t_lo;
+    fp32 a_hi = (fp32) c_hi;
+    fp32 a_lo = (fp32) c_lo;
     return float2(a_hi, a_lo);
 }
 
 float2 float2::split(fp32 a) {
     const fp32 split = (1 << 12) + 1;
-    fp32 t = a * split;
-    fp32 a_hi = t - (t-a);
+    fp32 c = a * split;
+    fp32 a_hi = c - (c - a);
     fp32 a_lo = a - a_hi;
     return float2(a_hi, a_lo);
 }
@@ -69,16 +69,16 @@ float2 float2::twoDiff (fp32 a, fp32 b) {
 
 float2 float2::twoProd(fp32 a, fp32 b) {
     fp32 p = a * b;
-    float2 aS = split(a);
-    float2 bS = split(b);
-    fp32 err = ((aS.x * bS.x - p) + aS.x * bS.y + aS.y * bS.x) + aS.y * bS.y;
+    float2 a_split = split(a);
+    float2 b_split = split(b);
+    fp32 err = ((a_split.x * b_split.x - p) + a_split.x * b_split.y + a_split.y * b_split.x) + a_split.y * b_split.y;
     return float2(p, err);
 }
 
 float2 float2::twoSqr(fp32 a) {
     fp32 p = a * a;
-    float2 aS = split(a);
-    fp32 err = ((aS.x * aS.x - p) + aS.x * aS.y + aS.y * aS.x) + aS.y * aS.y;
+    float2 a_split = split(a);
+    fp32 err = ((a_split.x * a_split.x - p) + a_split.x * a_split.y + a_split.y * a_split.x) + a_split.y * a_split.y;
     return float2(p, err);
 }
 
