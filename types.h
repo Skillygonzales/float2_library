@@ -6,4 +6,4 @@
 typedef double fp64;
 typedef __float128 fp128;
 
-#endif // TYPES_H
+#endif
