@@ -17,7 +17,7 @@ fp64 float2::getX() const { return x; }
 fp64 float2::getY() const { return y; }
 
 float2 float2::splitDouble(fp128 a) {
-    const fp128 splitter = (1 << 66) + 1;
+    const fp128 splitter = (__int128_t(1) << 59) + 1;
     fp128 t = a * splitter;
     fp128 t_hi = t - (t - a);
     fp128 t_lo = a - t_hi;
