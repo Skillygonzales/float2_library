@@ -136,7 +136,7 @@ double2 f2_sqrt(double2 a) {
     fp64 yn = a.x * xn;
     double2 ynsqr = f2_sqr(yn);
     fp64 diff = (a - ynsqr).x;
-    double2 prod = double2::twoProd(xn, diff) / double2(2.0f);
+    double2 prod = double2::twoProd(xn, diff) / double2(fp64(2.0f));
     double2 result = yn + prod;
     return result;
 }
