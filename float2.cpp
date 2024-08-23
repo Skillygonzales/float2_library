@@ -76,10 +76,10 @@ float2 float2::twoProd(fp32 a, fp32 b) {
 }
 
 float2 float2::twoSqr(fp32 a) {
-    fp32 p = a * a;
+    fp32 s = a * a;
     float2 a_split = split(a);
-    fp32 err = ((a_split.x * a_split.x - p) + a_split.x * a_split.y + a_split.y * a_split.x) + a_split.y * a_split.y;
-    return float2(p, err);
+    fp32 err = ((a_split.x * a_split.x - s) + a_split.x * a_split.y + a_split.y * a_split.x) + a_split.y * a_split.y;
+    return float2(s, err);
 }
 
 float2 operator+(float2 a, float2 b) {

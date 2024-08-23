@@ -17,7 +17,7 @@ int main() {
     int fp32_p = 6;
     int fp64_p = 15;
     
-    fp32 interval_low = 0.1;
+    fp32 interval_min = 0.1;
     fp32 interval_max = 1; 
 
     float2 f2a = float2(fp32(a));
@@ -102,10 +102,10 @@ int main() {
     file_sqr  << "ridicare la patrat cu precizie 32,ridicare la patrat cu precizie float2,ridicare la patrat cu precizie fp64\n";
     file_sqrt << "radical cu precizie fp32,radical cu precizie float2,radical cu precizie fp64\n";
 
-    std::random_device rd;
-    std::mt19937 gen(rd());
+    unsigned int seed = 12345;
+    std::mt19937 gen(seed);
 
-    std::uniform_real_distribution<> distr(interval_low, interval_max);
+    std::uniform_real_distribution<> distr(interval_min, interval_max);
 
     for(int i = 0; i < 1000; i++) {
         fp64 a_test = distr(gen);
