@@ -14,7 +14,7 @@ int main() {
     fp64 a = M_PI;
     fp64 b = M_E;
 
-    int fp32_p = 6;
+    int fp32_p = 16;
     int fp64_p = 15;
     fp32 interval_low = 0.1;
     fp32 interval_max = 1; 
@@ -82,7 +82,7 @@ int main() {
     std::cout << std::setprecision(fp64_p) << "radical cu precizie float2 = " << h2 << std::endl;
     std::cout << std::setprecision(fp64_p) << "radical cu precizie fp64   = " << sqrt(a) << std::endl;
 
-    /*fs::path dir = "results";
+    fs::path dir = "results";
     if (!fs::exists(dir)) {
         fs::create_directories(dir);  
     }
@@ -202,7 +202,7 @@ int main() {
 
     }
 
-    file_add.close();*/
+    file_add.close();
 
     return 0;
 }

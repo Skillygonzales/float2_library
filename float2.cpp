@@ -83,14 +83,14 @@ float2 float2::twoSqr(fp32 a) {
 }
 
 float2 operator+(float2 a, float2 b) {
-    float2 s, t;
-    s = float2::twoSum(a.x, b.x);
-    t = float2::twoSum(a.y, b.y);
-    s.y += t.x;
-    s = float2::quickTwoSum(s.x, s.y);
-    s.y += t.y;
-    s = float2::quickTwoSum(s.x, s.y);
-    return s;
+    float2 s_hi, s_lo;
+    s_hi = float2::twoSum(a.x, b.x);
+    s_lo = float2::twoSum(a.y, b.y);
+    s_hi.y += s_lo.x;
+    s_hi = float2::quickTwoSum(s_hi.x, s_hi.y);
+    s_hi.y += s_lo.y;
+    s_hi = float2::quickTwoSum(s_hi.x, s_hi.y);
+    return s_hi;
 }
 
 float2 operator-(float2 a, float2 b) {
