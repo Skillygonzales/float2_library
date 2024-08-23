@@ -85,7 +85,7 @@ int main() {
     std::cout << std::setprecision(fp64_p) << "fp64 precision square root  = " << h1 << std::endl;
     std::cout << "double2 precision square root = " << float128_to_string(h2) << std::endl;
     std::cout << "fp128 precision square root = " << float128_to_string(sqrtq(a)) << std::endl;
-    /*
+    
     fs::path dir = "results";
     if (!fs::exists(dir)) {
         fs::create_directories(dir);  // Create the directory if it doesn't exist
@@ -212,7 +212,7 @@ int main() {
 
     }
 
-    file_add.close();*/
+    file_add.close();
 
     return 0;
 }

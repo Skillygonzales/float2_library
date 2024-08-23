@@ -15,7 +15,7 @@ public:
     fp64 getX() const;
     fp64 getY() const;
 
-    static double2 splitDouble(fp128 a);
+    static double2 split_fp128(fp128 a);
     static double2 split(fp64 a);
     static fp128 combine(double2 a);
     static double2 twoSum(fp64 a, fp64 b);

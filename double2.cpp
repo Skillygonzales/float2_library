@@ -8,7 +8,7 @@ double2::double2(fp64 _x = 0, fp64 _y = 0) {
 }
 
 double2::double2(fp128 _x) {
-    double2 result = splitDouble(_x);
+    double2 result = split_fp128(_x);
     x = result.x;
     y = result.y;
 }
@@ -16,21 +16,21 @@ double2::double2(fp128 _x) {
 fp64 double2::getX() const { return x; }
 fp64 double2::getY() const { return y; }
 
-double2 double2::splitDouble(fp128 a) {
+double2 double2::split_fp128(fp128 a) {
     const fp128 splitter = (__int128_t(1) << 60) + 1;
-    fp128 t = a * splitter;
-    fp128 t_hi = t - (t - a);
-    fp128 t_lo = a - t_hi;
+    fp128 c = a * splitter;
+    fp128 c_hi = c - (c - a);
+    fp128 c_lo = a - c_hi;
 
-    fp64 a_hi = (fp64) t_hi;
-    fp64 a_lo = (fp64) t_lo;
+    fp64 a_hi = (fp64) c_hi;
+    fp64 a_lo = (fp64) c_lo;
     return double2(a_hi, a_lo);
 }
 
 double2 double2::split(fp64 a) {
     const fp64 split = (1 << 29) + 1;
-    fp64 t = a * split;
-    fp64 a_hi = t - (t-a);
+    fp64 c = a * split;
+    fp64 a_hi = c - (c - a);
     fp64 a_lo = a - a_hi;
     return double2(a_hi, a_lo);
 }
@@ -55,31 +55,31 @@ double2 double2::quickTwoSum(fp64 a, fp64 b) {
 }
 
 double2 double2::quickTwoDiff(fp64 a, fp64 b) {
-    fp64 s = a - b;
-    fp64 e = (a - s) - b;
-    return double2(s, e);
+    fp64 d = a - b;
+    fp64 e = (a - d) - b;
+    return double2(d, e);
 }
 
 double2 double2::twoDiff (fp64 a, fp64 b) {
-    fp64 s = a - b;
-    fp64 v = s - a;
-    fp64 e = (a - (s - v) - (b + v));
-    return double2(s, e);
+    fp64 d = a - b;
+    fp64 v = d - a;
+    fp64 e = (a - (d - v) - (b + v));
+    return double2(d, e);
 }
 
 double2 double2::twoProd(fp64 a, fp64 b) {
     fp64 p = a * b;
-    double2 aS = split(a);
-    double2 bS = split(b);
-    fp64 err = ((aS.x * bS.x - p) + aS.x * bS.y + aS.y * bS.x) + aS.y * bS.y;
+    double2 a_split = split(a);
+    double2 b_split = split(b);
+    fp64 err = ((a_split.x * b_split.x - p) + a_split.x * b_split.y + a_split.y * b_split.x) + a_split.y * b_split.y;
     return double2(p, err);
 }
 
 double2 double2::twoSqr(fp64 a) {
-    fp64 p = a * a;
-    double2 aS = split(a);
-    fp64 err = ((aS.x * aS.x - p) + aS.x * aS.y + aS.y * aS.x) + aS.y * aS.y;
-    return double2(p, err);
+    fp64 s = a * a;
+    double2 a_split = split(a);
+    fp64 err = ((a_split.x * a_split.x - s) + a_split.x * a_split.y + a_split.y * a_split.x) + a_split.y * a_split.y;
+    return double2(s, err);
 }
 
 double2 operator+(double2 a, double2 b) {
@@ -94,14 +94,14 @@ double2 operator+(double2 a, double2 b) {
 }
 
 double2 operator-(double2 a, double2 b) {
-    double2 s, t;
-    s = double2::twoDiff(a.x, b.x);
+    double2 d, t;
+    d = double2::twoDiff(a.x, b.x);
     t = double2::twoDiff(a.y, b.y);
-    s.y += t.x;
-    s = double2::quickTwoDiff(s.x, s.y);
-    s.y += t.y;
-    s = double2::quickTwoDiff(s.x, s.y);
-    return s;
+    d.y += t.x;
+    d = double2::quickTwoDiff(d.x, d.y);
+    d.y += t.y;
+    d = double2::quickTwoDiff(d.x, d.y);
+    return d;
 }
 
 double2 operator*(double2 a, double2 b) {
@@ -123,12 +123,12 @@ double2 operator/(double2 b, double2 a) {
 }
 
 double2 f2_sqr(double2 a) {
-    double2 p;
-    p = double2::twoSqr(a.x);
-    p.y += a.x * a.y;
-    p.y += a.y * a.x;
-    p = double2::quickTwoSum(p.x, p.y);
-    return p;
+    double2 s;
+    s = double2::twoSqr(a.x);
+    s.y += a.x * a.y;
+    s.y += a.y * a.x;
+    s = double2::quickTwoSum(s.x, s.y);
+    return s;
 }
 
 double2 f2_sqrt(double2 a) {
