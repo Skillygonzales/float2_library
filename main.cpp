@@ -16,6 +16,7 @@ int main() {
 
     int fp32_p = 16;
     int fp64_p = 15;
+    
     fp32 interval_low = 0.1;
     fp32 interval_max = 1; 
 
@@ -203,6 +204,11 @@ int main() {
     }
 
     file_add.close();
+    file_sub.close();
+    file_mul.close();
+    file_div.close();
+    file_sqr.close();
+    file_sqrt.close();
 
     return 0;
 }
