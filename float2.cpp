@@ -83,25 +83,25 @@ float2 float2::twoSqr(fp32 a) {
 }
 
 float2 operator+(float2 a, float2 b) {
-    float2 s_hi, s_lo;
-    s_hi = float2::twoSum(a.x, b.x);
-    s_lo = float2::twoSum(a.y, b.y);
-    s_hi.y += s_lo.x;
-    s_hi = float2::quickTwoSum(s_hi.x, s_hi.y);
-    s_hi.y += s_lo.y;
-    s_hi = float2::quickTwoSum(s_hi.x, s_hi.y);
-    return s_hi;
+    float2 s, t;
+    s = float2::twoSum(a.x, b.x);
+    t = float2::twoSum(a.y, b.y);
+    s.y += t.x;
+    s = float2::quickTwoSum(s.x, s.y);
+    s.y += t.y;
+    s = float2::quickTwoSum(s.x, s.y);
+    return s;
 }
 
 float2 operator-(float2 a, float2 b) {
-    float2 d_hi, d_lo;
-    d_hi = float2::twoDiff(a.x, b.x);
-    d_lo = float2::twoDiff(a.y, b.y);
-    d_hi.y += d_lo.x;
-    d_hi = float2::quickTwoDiff(d_hi.x, d_hi.y);
-    d_hi.y += d_lo.y;
-    d_hi = float2::quickTwoDiff(d_hi.x, d_hi.y);
-    return d_hi;
+    float2 d, t;
+    d = float2::twoDiff(a.x, b.x);
+    t = float2::twoDiff(a.y, b.y);
+    d.y += t.x;
+    d = float2::quickTwoDiff(d.x, d.y);
+    d.y += t.y;
+    d = float2::quickTwoDiff(d.x, d.y);
+    return d;
 }
 
 float2 operator*(float2 a, float2 b) {

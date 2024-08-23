@@ -14,7 +14,7 @@ int main() {
     fp64 a = M_PI;
     fp64 b = M_E;
 
-    int fp32_p = 16;
+    int fp32_p = 6;
     int fp64_p = 15;
     
     fp32 interval_low = 0.1;
