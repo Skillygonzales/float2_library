@@ -191,7 +191,7 @@ int main() {
         std::cout << std::setprecision(fp64_p) << "impartire cu precizie fp64   = " << fp64_div << std::endl;
         std::cout << std::endl;
         
-        std::cout << std::setprecision(fp32_p) << "ridicare la patrat cu precizie 32   = " << g1_test << std::endl;
+        std::cout << std::setprecision(fp32_p) << "ridicare la patrat cu precizie 32     = " << g1_test << std::endl;
         std::cout << std::setprecision(fp64_p) << "ridicare la patrat cu precizie float2 = " << g2_test << std::endl;
         std::cout << std::setprecision(fp64_p) << "ridicare la patrat cu precizie fp64   = " << fp64_sqr << std::endl;
         std::cout << std::endl;
