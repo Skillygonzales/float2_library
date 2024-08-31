@@ -2,6 +2,8 @@
 #include "types.h"
 #include <cmath>
 
+// implementarea metodelor din fisierul de tip header double2.h
+
 double2::double2(fp64 _x = 0, fp64 _y = 0) {
     x = _x;
     y = _y;
