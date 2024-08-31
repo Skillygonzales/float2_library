@@ -2,6 +2,8 @@
 #include "types.h"
 #include <cmath>
 
+// implementarea metodelor din fisierul de tip header float2.h
+
 float2::float2(fp32 _x = 0, fp32 _y = 0) {
     x = _x;
     y = _y;
